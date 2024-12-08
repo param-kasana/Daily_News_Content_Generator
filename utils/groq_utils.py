@@ -55,6 +55,12 @@ def extract_details_to_dataframe(user_inputs, groq_api_key, user_tone=None, user
             except json.JSONDecodeError as e:
                 print(f"JSON parsing error: {e}")
                 tone = platform = topic = "Error"
+            
+            # Override with user-specified tone or platform if provided
+            if user_tone:
+                tone = user_tone.capitalize()
+            if user_platform:
+                platform = user_platform.capitalize()
 
             # Add input and parsed details to results
             results.append({
