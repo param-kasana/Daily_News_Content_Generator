@@ -1,6 +1,16 @@
 from flask import Flask, render_template, request, url_for
-#from contentgeneration import retrieve_articles, summarize_articles, generate_post  # Import your functions
+from utils.groq_utils import extract_details_to_dataframe, generate_text_posts , generate_images , generate_memes_from_dataframe, suggest_and_generate_meme_content, fetch_news_for_single_topic_expand_rows, process_articles_with_summaries, generate_prompts_with_video_dependency
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
+
+# Get GROQ API Key
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+BING_API_KEY = os.getenv("BING_API_KEY")
+# Hugging Face Token
+HF_TOKEN = os.getenv('HF_TOKEN')
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/images'
@@ -9,34 +19,161 @@ app.config['UPLOAD_FOLDER'] = 'static/images'
 def index():
     return render_template('index.html')
 
+# @app.route('/generate', methods=['POST'])
+# def generate():
+#     # Get user inputs
+#     prompt = request.form.get('prompt')
+#     tone = request.form.get('tone')
+#     platform = request.form.get('platform')
+#     content_types = request.form.getlist('content_types')  # Get selected content types
+
+#     # Prepare user input list for the function
+#     user_inputs = [prompt]
+
+
+
+
+#     # Call utility function to extract details
+#     df = extract_details_to_dataframe(user_inputs, GROQ_API_KEY, user_tone=tone, user_platform=platform)
+
+#     # Fetch news articles for the topic in the DataFrame
+#     articles_df = fetch_news_for_single_topic_expand_rows(df,BING_API_KEY, topic_column="Topic", freshness="Day", sort_by="Relevance", count=2)
+
+#     # Process articles with summaries and topics
+#     processed_df = process_articles_with_summaries(articles_df, url_column="Article URL", groq_api_key=GROQ_API_KEY)
+
+#     # Generate prompts for all output types
+#     processed_df_with_prompts = generate_prompts_with_video_dependency(processed_df, groq_api_key=GROQ_API_KEY)
+
+
+#     # Suggest and generate meme content
+#     df_with_meme_content = suggest_and_generate_meme_content(
+#         processed_df_with_prompts,
+#         meme_prompt_column="Meme Prompt",
+#         tone_column="Tone",
+#         platform_column="Platform",
+#         topic_column="Topic_x",
+#         meme_data_file="meme_data.json",
+#         groq_api_key=GROQ_API_KEY
+#     )
+
+
+#     # Generate text posts
+#     df_with_text_posts = generate_text_posts(
+#         processed_df_with_prompts,
+#         text_prompt_column="Text Prompt",
+#         groq_api_key=GROQ_API_KEY
+#     )
+
+
+    
+
+#     # Generate images
+#     df_with_images = generate_images(
+#         processed_df_with_prompts,
+#         image_prompt_column="Image Prompt",
+#         output_dir="generated_images",
+#         hf_token=HF_TOKEN
+#     )
+
+
+#     # Path to meme_data.json
+#     meme_data_file = "meme_data.json"
+
+#     # Generate memes
+#     df_with_meme = generate_memes_from_dataframe(
+#         df_with_meme_content, 
+#         meme_data_file=meme_data_file, 
+#         template_column="Meme Template", 
+#         content_column="Meme Content"
+#     )
+
+#     # result = generate_post(summary, tone, platform)
+
+#     # Prepare outputs
+#     # outputs = {}
+#     # if 'text' in content_types:
+#     #     outputs['text'] = result.get('text')
+#     # if 'image' in content_types:
+#     #     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'generated_image.png')
+#     #     with open(image_path, 'wb') as img_file:
+#     #         img_file.write(result['image'])
+#     #     outputs['image_url'] = url_for('static', filename='images/generated_image.png')
+#     # if 'video' in content_types:
+#     #     outputs['video_url'] = result.get('video')
+#     # if 'meme' in content_types:
+#     #     outputs['meme_url'] = result.get('meme')
+
+#     # return render_template('result.html', outputs=outputs)
+
 @app.route('/generate', methods=['POST'])
 def generate():
-    # Get user inputs
+    # Step 1: Get user inputs
     prompt = request.form.get('prompt')
     tone = request.form.get('tone')
     platform = request.form.get('platform')
-    content_types = request.form.getlist('content_types')  # Get selected content types
+    content_types = request.form.getlist('content_types')  # Selected content types
 
-    # Call your functions
-    # articles = retrieve_articles(prompt)
-    # summary = summarize_articles(articles)
-    # result = generate_post(summary, tone, platform)
+    # Step 2: Extract details from the user input
+    user_inputs = [prompt]
+    df = extract_details_to_dataframe(user_inputs, GROQ_API_KEY, user_tone=tone, user_platform=platform)
 
-    # Prepare outputs
-    # outputs = {}
-    # if 'text' in content_types:
-    #     outputs['text'] = result.get('text')
-    # if 'image' in content_types:
-    #     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'generated_image.png')
-    #     with open(image_path, 'wb') as img_file:
-    #         img_file.write(result['image'])
-    #     outputs['image_url'] = url_for('static', filename='images/generated_image.png')
-    # if 'video' in content_types:
-    #     outputs['video_url'] = result.get('video')
-    # if 'meme' in content_types:
-    #     outputs['meme_url'] = result.get('meme')
+    if df.empty:
+        return render_template('result.html', error="No details extracted from the input.")
 
-    # return render_template('result.html', outputs=outputs)
+    # Step 3: Fetch related news articles
+    articles_df = fetch_news_for_single_topic_expand_rows(
+        df, BING_API_KEY, topic_column="Topic", freshness="Day", sort_by="Relevance", count=1
+    )
+
+    if articles_df.empty:
+        return render_template('result.html', error="No news articles found for the topic.")
+
+    # Step 4: Summarize articles and extract topics
+    processed_df = process_articles_with_summaries(
+        articles_df, url_column="Article URL", groq_api_key=GROQ_API_KEY
+    )
+
+    # Step 5: Generate prompts for all output types
+    processed_df_with_prompts = generate_prompts_with_video_dependency(
+        processed_df, groq_api_key=GROQ_API_KEY
+    )
+
+    # Step 6: Generate content based on user selections
+    outputs = {}
+
+    # Generate Text Posts
+    if 'text' in content_types:
+        processed_df_with_text = generate_text_posts(
+            processed_df_with_prompts, text_prompt_column="Text Prompt", groq_api_key=GROQ_API_KEY
+        )
+        outputs['text'] = processed_df_with_text["Generated Text Post"].tolist()
+
+    # Generate Images
+    if 'image' in content_types:
+        processed_df_with_images = generate_images(
+            processed_df_with_prompts, image_prompt_column="Image Prompt",
+            output_dir = os.path.join("static", "images", "generated"), hf_token=HF_TOKEN
+        )
+        outputs['images'] = processed_df_with_images["Generated Image Path"].tolist()
+        print(outputs['images'])
+
+    # Generate Memes
+    if 'meme' in content_types:
+        df_with_meme_content = suggest_and_generate_meme_content(
+            processed_df_with_prompts, meme_prompt_column="Meme Prompt", tone_column="Tone",
+            platform_column="Platform", topic_column="Topic_x", meme_data_file="meme_data.json",
+            groq_api_key=GROQ_API_KEY
+        )
+        df_with_memes = generate_memes_from_dataframe(
+            df_with_meme_content, meme_data_file="meme_data.json",
+            template_column="Meme Template", content_column="Meme Content"
+        )
+        outputs['memes'] = df_with_memes["Meme Path"].tolist()
+
+    # Return results to the template
+    return render_template('result.html', outputs=outputs)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
