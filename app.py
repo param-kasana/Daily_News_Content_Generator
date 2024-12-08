@@ -39,4 +39,4 @@ def generate():
     # return render_template('result.html', outputs=outputs)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
