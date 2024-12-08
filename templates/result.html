@@ -15,10 +15,16 @@
             <p>{{ outputs.text }}</p>
         </div>
         {% endif %}
-        {% if outputs.image_url %}
+        {% if outputs.images %}
         <div class="mt-4">
-            <h4>Generated Image:</h4>
-            <li><img src="{{ url_for('static', filename=image.split('static/')[-1]) }}" alt="Generated Image" class="img-fluid"></li>
+            <ul>
+                {% for image in outputs.images %}
+                    <li>
+                        <img src="{{ url_for('static', filename='images/generated/' + image.split('/')[-1]) }}" 
+                            alt="Generated Image" class="img-fluid">
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
         {% endif %}
         {% if outputs.video_url %}
