@@ -92,16 +92,19 @@ def generate():
 
     # Generate Memes
     if 'meme' in content_types:
+        meme_data_file = os.path.join("data", "meme_data.json")
         df_with_meme_content = suggest_and_generate_meme_content(
             processed_df_with_prompts, meme_prompt_column="Meme Prompt", tone_column="Tone",
-            platform_column="Platform", topic_column="Topic_x", meme_data_file="meme_data.json",
+            platform_column="Platform", topic_column="Topic_x", meme_data_file=meme_data_file,
             groq_api_key=GROQ_API_KEY
         )
         df_with_memes = generate_memes_from_dataframe(
-            df_with_meme_content, meme_data_file="meme_data.json",
+            df_with_meme_content, meme_data_file=meme_data_file,
             template_column="Meme Template", content_column="Meme Content"
         )
-        outputs['memes'] = df_with_memes["Meme Path"].tolist()
+        outputs['memes'] = [
+        meme_path.replace("static/", "") for meme_path in df_with_memes["Meme Path"].tolist()
+        ]
 
     
     # Step 6: Generate Videos
@@ -129,28 +132,16 @@ def generate():
                     hf_token=HF_TOKEN,
                     google_credentials=GOOGLE_CREDENTIALS
                 )
-
+                
                 video_paths.append(video_path)
             except Exception as e:
                 print(f"Error generating video for row {index}: {e}")
                 video_paths.append("Error generating video")
 
         # Add video paths to the outputs
-        outputs['videos'] = video_paths
-    
-    # # Generate Video
-    # if 'video' in content_types:
-    #     # Example usage
-    #     prompts = [
-    #         "A cartoon of a robot performing stand-up comedy while a human looks nervous in the audience.",
-    #         "A robot telling jokes on stage with a spotlight while a human laughs nervously.",
-    #         "A humanoid robot delivering a comedy monologue, audience looking skeptical.",
-    #     ]
-        
-    #     narration_text = "Welcome to the stand-up comedy night with our star performer, the humanoid robot! Welcome to the stand-up comedy night with our star performer, the humanoid robot!"
-
-    #     generate_video(prompts, narration_text, hf_token=HF_TOKEN, google_credentials = GOOGLE_CREDENTIALS)
-
+        outputs['videos'] = [
+        video_path.replace("static/", "") for video_path in video_paths
+        ]
 
     # Return results to the template
     return render_template('result.html', outputs=outputs)

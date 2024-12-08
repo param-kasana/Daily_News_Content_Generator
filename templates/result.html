@@ -17,6 +17,7 @@
         {% endif %}
         {% if outputs.images %}
         <div class="mt-4">
+            <h4>Generated Image:</h4>
             <ul>
                 {% for image in outputs.images %}
                     <li>
@@ -27,18 +28,31 @@
             </ul>
         </div>
         {% endif %}
-        {% if outputs.video %}
-        <div class="mt-4">
-            <h4>Generated Video:</h4>
-            <video controls>
-                <source src="{{ outputs.video_url }}" type="video/mp4">
-            </video>
+        {% if outputs.videos %}
+        <div>
+            <h4>Generated Videos:</h4>
+            <ul>
+                {% for video in outputs.videos %}
+                <li>
+                    <video controls class="video-fluid">
+                        <source src="{{ url_for('static', filename=video) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
         {% endif %}
-        {% if outputs.meme %}
-        <div class="mt-4">
+        {% if outputs.memes %}
+        <div>
             <h4>Generated Meme:</h4>
-            <img src="{{ outputs.meme_url }}" alt="Generated Meme" class="img-fluid">
+            <ul>
+                {% for meme in outputs.memes %}
+                <li>
+                    <img src="{{ url_for('static', filename=meme) }}" alt="Generated Meme" class="img-fluid">
+                </li>
+                {% endfor %}
+            </ul>
         </div>
         {% endif %}
         <div class="mt-4 text-center">

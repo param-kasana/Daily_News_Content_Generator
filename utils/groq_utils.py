@@ -810,4 +810,5 @@ def generate_video(prompts, narration_text, hf_token, google_credentials):
     audio = text_to_speech(narration_text, google_credentials)
 
     # Combine video and audio
-    combine_video_audio(video, audio)
+    video_path = combine_video_audio(video, audio)
+    return video_path

@@ -1,0 +1,1341 @@
+[
+    {
+        "id": "aag",
+        "name": "Ancient Aliens Guy",
+        "lines": 2,
+        "keywords": [
+            "History Channel"
+        ]
+    },
+    {
+        "id": "ackbar",
+        "name": "It's A Trap!",
+        "lines": 2,
+        "keywords": [
+            "Star Wards",
+            "Admiral Ackbar"
+        ]
+    },
+    {
+        "id": "afraid",
+        "name": "Afraid to Ask Andy",
+        "lines": 2,
+        "keywords": [
+            "Parks and Recreation"
+        ]
+    },
+    {
+        "id": "agnes",
+        "name": "Agnes Harkness Winking",
+        "lines": 2,
+        "keywords": [
+            "WandaVision"
+        ]
+    },
+    {
+        "id": "aint-got-time",
+        "name": "Sweet Brown",
+        "lines": 2,
+        "keywords": [
+            "Ain't Nobody Got Time For That"
+        ]
+    },
+    {
+        "id": "ams",
+        "name": "Awkward Moment Seal",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ants",
+        "name": "Do You Want Ants?",
+        "lines": 2,
+        "keywords": [
+            "Archer"
+        ]
+    },
+    {
+        "id": "apcr",
+        "name": "Almost Politically Correct Redneck",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "astronaut",
+        "name": "Always Has Been",
+        "lines": 4,
+        "keywords": []
+    },
+    {
+        "id": "atis",
+        "name": "And Then I Said",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "away",
+        "name": "Life... Finds a Way",
+        "lines": 2,
+        "keywords": [
+            "Jurassic Park"
+        ]
+    },
+    {
+        "id": "awesome",
+        "name": "Socially Awesome Penguin",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "awesome-awkward",
+        "name": "Socially Awesome Awkward Penguin",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "awkward",
+        "name": "Socially Awkward Penguin",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "awkward-awesome",
+        "name": "Socially Awkward Awesome Penguin",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "bad",
+        "name": "You Should Feel Bad",
+        "lines": 2,
+        "keywords": [
+            "Futurama",
+            "Zoidberg"
+        ]
+    },
+    {
+        "id": "badchoice",
+        "name": "Milk Was a Bad Choice",
+        "lines": 2,
+        "keywords": [
+            "Anchorman"
+        ]
+    },
+    {
+        "id": "balloon",
+        "name": "Running Away Balloon",
+        "lines": 3,
+        "keywords": [
+            "Superlmer"
+        ]
+    },
+    {
+        "id": "bd",
+        "name": "Butthurt Dweller",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "because",
+        "name": "Men in Black",
+        "lines": 2,
+        "keywords": [
+            "Will Smith"
+        ]
+    },
+    {
+        "id": "bender",
+        "name": "I'm Going to Build My Own Theme Park",
+        "lines": 2,
+        "keywords": [
+            "Futurama"
+        ]
+    },
+    {
+        "id": "bihw",
+        "name": "But It's Honest Work",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "bilbo",
+        "name": "Why Shouldn't I Keep It",
+        "lines": 2,
+        "keywords": [
+            "Lord of the Rings",
+            "Bilbo Baggins"
+        ]
+    },
+    {
+        "id": "biw",
+        "name": "Baby Insanity Wolf",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "blb",
+        "name": "Bad Luck Brian",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "boat",
+        "name": "I Should Buy a Boat Cat",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "bongo",
+        "name": "Bongo Cat",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "both",
+        "name": "Why Not Both?",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "box",
+        "name": "What's in the box!?",
+        "lines": 2,
+        "keywords": [
+            "Seven"
+        ]
+    },
+    {
+        "id": "bs",
+        "name": "This is Bull, Shark",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "buzz",
+        "name": "X, X Everywhere",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "cake",
+        "name": "Office Space Milton",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "captain",
+        "name": "I am the Captain Now",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "captain-america",
+        "name": "Captain America Elevator Fight Dad Joke",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "cb",
+        "name": "Confession Bear",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "cbb",
+        "name": "Communist Bugs Bunny",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "cbg",
+        "name": "Comic Book Guy",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "center",
+        "name": "What is this, a Center for Ants?!",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ch",
+        "name": "Captain Hindsight",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "chair",
+        "name": "American Chopper Argument",
+        "lines": 6,
+        "keywords": []
+    },
+    {
+        "id": "cheems",
+        "name": "Cheems",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "chosen",
+        "name": "You Were the Chosen One!",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "cmm",
+        "name": "Change My Mind",
+        "lines": 1,
+        "keywords": []
+    },
+    {
+        "id": "country",
+        "name": "What a Country",
+        "lines": 2,
+        "keywords": [
+            "The Simpsons",
+            "Dr. Nick"
+        ]
+    },
+    {
+        "id": "crazypills",
+        "name": "I Feel Like I'm Taking Crazy Pills",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "crow",
+        "name": "Get Better Material",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "cryingfloor",
+        "name": "Crying on Floor",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "db",
+        "name": "Distracted Boyfriend",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "dbg",
+        "name": "Expectation vs. Reality",
+        "lines": 2,
+        "keywords": [
+            "Disappointed Black Guy"
+        ]
+    },
+    {
+        "id": "dg",
+        "name": "Distracted Girlfriend",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "disastergirl",
+        "name": "Disaster Girl",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "dodgson",
+        "name": "See? Nobody Cares",
+        "lines": 2,
+        "keywords": [
+            "Jurassic Park"
+        ]
+    },
+    {
+        "id": "doge",
+        "name": "",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "dragon",
+        "name": "What Color Do You Want Your Dragon",
+        "lines": 1,
+        "keywords": [
+            "wish"
+        ]
+    },
+    {
+        "id": "drake",
+        "name": "Drakeposting",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "drowning",
+        "name": "Drowning High Five",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "drunk",
+        "name": "Drunk Baby",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ds",
+        "name": "Daily Struggle",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "dsm",
+        "name": "Dating Site Murderer",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "dwight",
+        "name": "Schrute Facts",
+        "lines": 2,
+        "keywords": [
+            "The Office"
+        ]
+    },
+    {
+        "id": "elf",
+        "name": "You Sit on a Throne of Lies",
+        "lines": 2,
+        "keywords": [
+            "Elf"
+        ]
+    },
+    {
+        "id": "elmo",
+        "name": "Elmo Choosing Cocaine",
+        "lines": 5,
+        "keywords": []
+    },
+    {
+        "id": "ermg",
+        "name": "Ermahgerd",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "exit",
+        "name": "Left Exit 12 Off Ramp",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "fa",
+        "name": "Forever Alone",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "facepalm",
+        "name": "Facepalm",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "fbf",
+        "name": "Foul Bachelor Frog",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "feelsgood",
+        "name": "Feels Good",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "fetch",
+        "name": "Stop Trying to Make Fetch Happen",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "fine",
+        "name": "This is Fine",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "firsttry",
+        "name": "First Try!",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "fmr",
+        "name": "Fuck Me, Right?",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "friends",
+        "name": "Are You Two Friends?",
+        "lines": 3,
+        "keywords": [
+            "Star Trek"
+        ]
+    },
+    {
+        "id": "fry",
+        "name": "Futurama Fry",
+        "lines": 2,
+        "keywords": [
+            "Philip J. Fry"
+        ]
+    },
+    {
+        "id": "fwp",
+        "name": "First World Problems",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "gandalf",
+        "name": "Confused Gandalf",
+        "lines": 2,
+        "keywords": [
+            "Lord of the Rings"
+        ]
+    },
+    {
+        "id": "gb",
+        "name": "Galaxy Brain",
+        "lines": 4,
+        "keywords": []
+    },
+    {
+        "id": "gears",
+        "name": "You Know What Really Grinds My Gears?",
+        "lines": 2,
+        "keywords": [
+            "Family Guy"
+        ]
+    },
+    {
+        "id": "genie",
+        "name": "Genie Lamp",
+        "lines": 2,
+        "keywords": [
+            "Aladin"
+        ]
+    },
+    {
+        "id": "ggg",
+        "name": "Good Guy Greg",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "glasses",
+        "name": "Peter Parker's Glasses",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "gone",
+        "name": "And It's Gone",
+        "lines": 2,
+        "keywords": [
+            "South Park"
+        ]
+    },
+    {
+        "id": "grave",
+        "name": "Grant Gustin Next To Oliver Queen's Grave",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "gru",
+        "name": "Gru's Plan",
+        "lines": 4,
+        "keywords": []
+    },
+    {
+        "id": "grumpycat",
+        "name": "Grumpy Cat",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "hagrid",
+        "name": "I Should Not Have Said That",
+        "lines": 2,
+        "keywords": [
+            "Harry Potter"
+        ]
+    },
+    {
+        "id": "happening",
+        "name": "It's Happening",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "harold",
+        "name": "Hide the Pain Harold",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "headaches",
+        "name": "Types of Headaches",
+        "lines": 1,
+        "keywords": []
+    },
+    {
+        "id": "hipster",
+        "name": "Hipster Barista",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "home",
+        "name": "We Have Food at Home",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "icanhas",
+        "name": "I Can Has Cheezburger?",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "imsorry",
+        "name": "Oh, I'm Sorry, I Thought This Was America",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "inigo",
+        "name": "Inigo Montoya",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "interesting",
+        "name": "The Most Interesting Man in the World",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ive",
+        "name": "Jony Ive Redesigns Things",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "iw",
+        "name": "Insanity Wolf",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "jd",
+        "name": "Joseph Ducreux",
+        "lines": 2,
+        "keywords": [
+            "Archaic Rap"
+        ]
+    },
+    {
+        "id": "jetpack",
+        "name": "Nothing To Do Here",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "jim",
+        "name": "Jim Halpert Pointing to Whiteboard",
+        "lines": 2,
+        "keywords": [
+            "The Office"
+        ]
+    },
+    {
+        "id": "joker",
+        "name": "It's Simple, Kill the Batman",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "jw",
+        "name": "Probably Not a Good Idea",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "keanu",
+        "name": "Conspiracy Keanu",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "kermit",
+        "name": "But That's None of My Business",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "khaby-lame",
+        "name": "Khaby Lame Shrug",
+        "lines": 2,
+        "keywords": [
+            "It's That Sample"
+        ]
+    },
+    {
+        "id": "kk",
+        "name": "Karate Kyle",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "kombucha",
+        "name": "Kombucha Girl",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "kramer",
+        "name": "Kramer, What's Going On In There?",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "leo",
+        "name": "Leo Strutting",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "light",
+        "name": "Everything the Light Touches is Our Kingdom",
+        "lines": 2,
+        "keywords": [
+            "Lion King",
+            "Mufasa and Simba"
+        ]
+    },
+    {
+        "id": "live",
+        "name": "Do It Live!",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ll",
+        "name": "Laughing Lizard",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "lrv",
+        "name": "Laundry Room Viking",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "made",
+        "name": "I Made This",
+        "lines": 5,
+        "keywords": []
+    },
+    {
+        "id": "mb",
+        "name": "Member Berries",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "michael-scott",
+        "name": "Michael Scott No God No",
+        "lines": 2,
+        "keywords": [
+            "The Office"
+        ]
+    },
+    {
+        "id": "midwit",
+        "name": "Midwit",
+        "lines": 3,
+        "keywords": [
+            "IQ Bell Curve / Midwit"
+        ]
+    },
+    {
+        "id": "millers",
+        "name": "You Guys Are Getting Paid?",
+        "lines": 4,
+        "keywords": []
+    },
+    {
+        "id": "mini-keanu",
+        "name": "Mini Keanu Reeves",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "mmm",
+        "name": "Minor Mistake Marvin",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "money",
+        "name": "Shut Up and Take My Money!",
+        "lines": 2,
+        "keywords": [
+            "Futurama",
+            "Philip J. Fry"
+        ]
+    },
+    {
+        "id": "mordor",
+        "name": "One Does Not Simply Walk into Mordor",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "morpheus",
+        "name": "Matrix Morpheus",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "mouth",
+        "name": "Woman Holding Dog's Mouth",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "mw",
+        "name": "I Guarantee It",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "nails",
+        "name": "Guy Hammering Nails Into Sand",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "nice",
+        "name": "So I Got That Goin' For Me, Which is Nice",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "noah",
+        "name": "What the Hell is This?",
+        "lines": 4,
+        "keywords": [
+            "Family Guy Noah"
+        ]
+    },
+    {
+        "id": "noidea",
+        "name": "I Have No Idea What I'm Doing",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ntot",
+        "name": "No Take, Only Throw",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "oag",
+        "name": "Overly Attached Girlfriend",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "officespace",
+        "name": "That Would Be Great",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "older",
+        "name": "An Older Code Sir, But It Checks Out",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "oprah",
+        "name": "Oprah You Get a Car",
+        "lines": 2,
+        "keywords": [
+            "everybody gets",
+            "you win"
+        ]
+    },
+    {
+        "id": "panik-kalm-panik",
+        "name": "Panik Kalm Panik",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "patrick",
+        "name": "Push it somewhere else Patrick",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "perfection",
+        "name": "Perfection",
+        "lines": 6,
+        "keywords": [
+            "I Prefer the Real Raven"
+        ]
+    },
+    {
+        "id": "persian",
+        "name": "Persian Cat Room Guardian",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "philosoraptor",
+        "name": "Philosoraptor",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "pigeon",
+        "name": "Is This a Pigeon?",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "pooh",
+        "name": "Tuxedo Winnie the Pooh",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "pool",
+        "name": "Mother Ignoring Kid Drowning In A Pool",
+        "lines": 3,
+        "keywords": [
+            "my cousins learning to swim"
+        ]
+    },
+    {
+        "id": "prop3",
+        "name": "Too Confusing, Too Extreme",
+        "lines": 1,
+        "keywords": [
+            "Michigan Proposal 3"
+        ]
+    },
+    {
+        "id": "ptj",
+        "name": "Phoebe Teaching Joey",
+        "lines": 8,
+        "keywords": []
+    },
+    {
+        "id": "puffin",
+        "name": "Unpopular opinion puffin",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "red",
+        "name": "Oh, Is That What We're Going to Do Today?",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "regret",
+        "name": "I Immediately Regret This Decision!",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "remembers",
+        "name": "Pepperidge Farm Remembers",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "reveal",
+        "name": "Scooby Doo Reveal",
+        "lines": 4,
+        "keywords": []
+    },
+    {
+        "id": "right",
+        "name": "Anakin and Padme Change the World For the Better",
+        "lines": 5,
+        "keywords": []
+    },
+    {
+        "id": "rollsafe",
+        "name": "Roll Safe",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "rollsafe",
+        "name": "Roll Safe",
+        "lines": 1,
+        "keywords": []
+    },
+    {
+        "id": "sad-biden",
+        "name": "Sad Joe Biden",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sad-boehner",
+        "name": "Sad John Boehner",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sad-bush",
+        "name": "Sad George Bush",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sad-clinton",
+        "name": "Sad Bill Clinton",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sad-obama",
+        "name": "Sad Barack Obama",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sadfrog",
+        "name": "Feels Bad Man",
+        "lines": 2,
+        "keywords": [
+            "Sad Frog"
+        ]
+    },
+    {
+        "id": "saltbae",
+        "name": "Salt Bae",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "same",
+        "name": "They're The Same Picture",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "sarcasticbear",
+        "name": "Sarcastic Bear",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "say",
+        "name": "Say the Line, Bart!",
+        "lines": 2,
+        "keywords": [
+            "The Simpsons",
+            "Bart Simpson"
+        ]
+    },
+    {
+        "id": "sb",
+        "name": "Scumbag Brain",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "scc",
+        "name": "Sudden Clarity Clarence",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "seagull",
+        "name": "Inhaling Seagull",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sf",
+        "name": "Sealed Fate",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sk",
+        "name": "Skeptical Third World Kid",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ski",
+        "name": "Super Cool Ski Instructor",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "slap",
+        "name": "Will Smith Slapping Chris Rock",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "snek",
+        "name": "Skeptical Snake",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "soa",
+        "name": "Seal of Approval",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sohappy",
+        "name": "I Would Be So Happy",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "sohot",
+        "name": "So Hot Right Now",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "soup-nazi",
+        "name": "No Soup for You",
+        "lines": 2,
+        "keywords": [
+            "Seinfeld",
+            "Soup Nazi"
+        ]
+    },
+    {
+        "id": "sparta",
+        "name": "This is Sparta!",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "spiderman",
+        "name": "Spider-Man Pointing at Spider-Man",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "spirit",
+        "name": "Fake Spirit Halloween Costume",
+        "lines": 5,
+        "keywords": [
+            "adult size costume"
+        ]
+    },
+    {
+        "id": "spongebob",
+        "name": "Mocking Spongebob",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ss",
+        "name": "Scumbag Steve",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "stew",
+        "name": "Baby, You've Got a Stew Going",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "stonks",
+        "name": "Stonks",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "stop",
+        "name": "Stop It Patrick You're Scaring Him",
+        "lines": 6,
+        "keywords": []
+    },
+    {
+        "id": "stop-it",
+        "name": "Stop It, Get Some Help",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "success",
+        "name": "Success Kid",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "tenguy",
+        "name": "10 Guy",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "toohigh",
+        "name": "The Rent Is Too Damn High",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "touch",
+        "name": "Principal Skinner",
+        "lines": 2,
+        "keywords": [
+            "Am I Out Of Touch?",
+            "The Simpsons"
+        ]
+    },
+    {
+        "id": "tried",
+        "name": "At Least You Tried",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "trump",
+        "name": "Donald Trump",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "ugandanknuck",
+        "name": "Ugandan Knuckles",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "vince",
+        "name": "Vince McMahon Reaction",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "wallet",
+        "name": "Patrick Star's Wallet",
+        "lines": 8,
+        "keywords": []
+    },
+    {
+        "id": "waygd",
+        "name": "What Are Ya Gonna Do?",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "wddth",
+        "name": "We Don't Do That Here",
+        "lines": 2,
+        "keywords": [
+            "Black Panther"
+        ]
+    },
+    {
+        "id": "whatyear",
+        "name": "What Year Is It?",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "winter",
+        "name": "Winter is coming",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "wishes",
+        "name": "Genie Rules",
+        "lines": 1,
+        "keywords": [
+            "wish",
+            "want"
+        ]
+    },
+    {
+        "id": "wkh",
+        "name": "Who Killed Hannibal?",
+        "lines": 3,
+        "keywords": []
+    },
+    {
+        "id": "woman-cat",
+        "name": "Woman Yelling at a Cat",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "wonka",
+        "name": "Condescending Wonka",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "worst",
+        "name": "The Worst Day Of Your Life So Far",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "xy",
+        "name": "X all the Y",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "yallgot",
+        "name": "Y'all Got Any More of Them",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "yodawg",
+        "name": "Xzibit Yo Dawg",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "yuno",
+        "name": "Y U NO Guy",
+        "lines": 2,
+        "keywords": []
+    },
+    {
+        "id": "zero-wing",
+        "name": "All Your Base Are Belong to Us",
+        "lines": 1,
+        "keywords": []
+    }
+]
