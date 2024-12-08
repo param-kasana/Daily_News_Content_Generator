@@ -285,9 +285,10 @@ def generate_prompts_with_video_dependency(processed_df, groq_api_key):
                     )
                 elif output_type == "video_visuals":
                     meta_prompt = (
-                        f"Generate a concise input prompt that can be fed into an AI model to create a {tone.lower()} video for a "
-                        f"{platform.lower()} post on the topic '{topic}', based on this summary: '{summary}'. Focus on the visual elements. "
-                        "Provide only the prompt text, nothing extra words"
+                        f"Generate three distinct and concise visual prompts for creating a {tone.lower()} video for a "
+                        f"{platform.lower()} post on the topic '{topic}', based on this summary: '{summary}'. "
+                        "Each prompt should describe only the visual elements. Return the prompts as three separate lines, "
+                        "with no additional words or explanations."
                     )
                 elif output_type == "meme":
                     meta_prompt = (
@@ -309,7 +310,7 @@ def generate_prompts_with_video_dependency(processed_df, groq_api_key):
             # Generate voiceover prompt based on the video visuals prompt
             video_visuals_prompt = prompts["video_visuals"][-1]  # Get the last generated video visuals prompt
             meta_prompt_voiceover = (
-                f"Based on this video visuals prompt: '{video_visuals_prompt}', generate a short voiceover script that aligns with the visuals "
+                f"Based on this video visuals prompt: '{video_visuals_prompt}', generate a 30 words voiceover script that aligns with the visuals "
                 f"and matches the {tone.lower()} tone for a {platform.lower()} post on the topic '{topic}'. Provide only the script text, nothing extra words"
             )
 
@@ -670,7 +671,7 @@ def generate_memes_from_dataframe(
 
 ##---------------------------------------------------video generation agent--------------------------------------------------------------
 
-def generate_images(prompts, hf_token, model_id="stabilityai/stable-diffusion-xl-base-1.0"):
+def generate_images_for_video(prompts, hf_token, model_id="stabilityai/stable-diffusion-xl-base-1.0"):
     """
     Generate images from text prompts using a Hugging Face model.
 
@@ -688,7 +689,7 @@ def generate_images(prompts, hf_token, model_id="stabilityai/stable-diffusion-xl
     # Initialize the Hugging Face client
     client = InferenceClient(token=hf_token)
 
-    output_dir = os.path.join("static", "images", "for_video")
+    output_dir = os.path.join("static", "videos")
     os.makedirs(output_dir, exist_ok=True)
 
     image_files = []
@@ -715,7 +716,7 @@ def create_video_from_images(image_files):
     Returns:
         str: Path to the generated video.
     """
-    output_dir = os.path.join("static", "images", "for_video")
+    output_dir = os.path.join("static", "videos")
     os.makedirs(output_dir, exist_ok=True)
     output_file = os.path.join(output_dir, f"gen_video.mp4")
 
@@ -738,7 +739,7 @@ def text_to_speech(text, google_credentials):
     Returns:
         str: Path to the generated audio file.
     """
-    output_dir = os.path.join("static", "images", "for_video")
+    output_dir = os.path.join("static", "videos")
     os.makedirs(output_dir, exist_ok=True)
     output_file = os.path.join(output_dir, f"gen_audio.mp3")
 
@@ -775,7 +776,7 @@ def combine_video_audio(input_video, input_audio):
         output_video (str): Path to save the output video file.
     """
     try:
-        output_dir = os.path.join("static", "images", "for_video")
+        output_dir = os.path.join("static", "videos")
         os.makedirs(output_dir, exist_ok=True)
         output_file = os.path.join(output_dir, f"final_video.mp4")
 
@@ -799,7 +800,7 @@ def combine_video_audio(input_video, input_audio):
 
 def generate_video(prompts, narration_text, hf_token, google_credentials):
     # Generate images
-    images = generate_images(prompts, hf_token)
+    images = generate_images_for_video(prompts, hf_token)
 
     # Create video from images
     video = create_video_from_images(images)

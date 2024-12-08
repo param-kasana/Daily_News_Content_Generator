@@ -39,93 +39,6 @@ app.config['UPLOAD_FOLDER'] = 'static/images'
 def index():
     return render_template('index.html')
 
-# @app.route('/generate', methods=['POST'])
-# def generate():
-#     # Get user inputs
-#     prompt = request.form.get('prompt')
-#     tone = request.form.get('tone')
-#     platform = request.form.get('platform')
-#     content_types = request.form.getlist('content_types')  # Get selected content types
-
-#     # Prepare user input list for the function
-#     user_inputs = [prompt]
-
-
-
-
-#     # Call utility function to extract details
-#     df = extract_details_to_dataframe(user_inputs, GROQ_API_KEY, user_tone=tone, user_platform=platform)
-
-#     # Fetch news articles for the topic in the DataFrame
-#     articles_df = fetch_news_for_single_topic_expand_rows(df,BING_API_KEY, topic_column="Topic", freshness="Day", sort_by="Relevance", count=2)
-
-#     # Process articles with summaries and topics
-#     processed_df = process_articles_with_summaries(articles_df, url_column="Article URL", groq_api_key=GROQ_API_KEY)
-
-#     # Generate prompts for all output types
-#     processed_df_with_prompts = generate_prompts_with_video_dependency(processed_df, groq_api_key=GROQ_API_KEY)
-
-
-#     # Suggest and generate meme content
-#     df_with_meme_content = suggest_and_generate_meme_content(
-#         processed_df_with_prompts,
-#         meme_prompt_column="Meme Prompt",
-#         tone_column="Tone",
-#         platform_column="Platform",
-#         topic_column="Topic_x",
-#         meme_data_file="meme_data.json",
-#         groq_api_key=GROQ_API_KEY
-#     )
-
-
-#     # Generate text posts
-#     df_with_text_posts = generate_text_posts(
-#         processed_df_with_prompts,
-#         text_prompt_column="Text Prompt",
-#         groq_api_key=GROQ_API_KEY
-#     )
-
-
-    
-
-#     # Generate images
-#     df_with_images = generate_images(
-#         processed_df_with_prompts,
-#         image_prompt_column="Image Prompt",
-#         output_dir="generated_images",
-#         hf_token=HF_TOKEN
-#     )
-
-
-#     # Path to meme_data.json
-#     meme_data_file = "meme_data.json"
-
-#     # Generate memes
-#     df_with_meme = generate_memes_from_dataframe(
-#         df_with_meme_content, 
-#         meme_data_file=meme_data_file, 
-#         template_column="Meme Template", 
-#         content_column="Meme Content"
-#     )
-
-#     # result = generate_post(summary, tone, platform)
-
-#     # Prepare outputs
-#     # outputs = {}
-#     # if 'text' in content_types:
-#     #     outputs['text'] = result.get('text')
-#     # if 'image' in content_types:
-#     #     image_path = os.path.join(app.config['UPLOAD_FOLDER'], 'generated_image.png')
-#     #     with open(image_path, 'wb') as img_file:
-#     #         img_file.write(result['image'])
-#     #     outputs['image_url'] = url_for('static', filename='images/generated_image.png')
-#     # if 'video' in content_types:
-#     #     outputs['video_url'] = result.get('video')
-#     # if 'meme' in content_types:
-#     #     outputs['meme_url'] = result.get('meme')
-
-#     # return render_template('result.html', outputs=outputs)
-
 @app.route('/generate', methods=['POST'])
 def generate():
     # Step 1: Get user inputs
@@ -158,7 +71,7 @@ def generate():
     processed_df_with_prompts = generate_prompts_with_video_dependency(
         processed_df, groq_api_key=GROQ_API_KEY
     )
-
+    processed_df_with_prompts.to_csv("processed_df_with_prompts.csv", index=False)
     # Step 6: Generate content based on user selections
     outputs = {}
 
@@ -189,19 +102,58 @@ def generate():
             template_column="Meme Template", content_column="Meme Content"
         )
         outputs['memes'] = df_with_memes["Meme Path"].tolist()
-    
-    # Generate Video
-    if 'video' in content_types:
-        # Example usage
-        prompts = [
-            "A cartoon of a robot performing stand-up comedy while a human looks nervous in the audience.",
-            "A robot telling jokes on stage with a spotlight while a human laughs nervously.",
-            "A humanoid robot delivering a comedy monologue, audience looking skeptical.",
-        ]
-        
-        narration_text = "Welcome to the stand-up comedy night with our star performer, the humanoid robot! Welcome to the stand-up comedy night with our star performer, the humanoid robot!"
 
-        generate_video(prompts, narration_text, hf_token=HF_TOKEN, google_credentials = GOOGLE_CREDENTIALS)
+    
+    # Step 6: Generate Videos
+    if 'video' in content_types:
+        video_paths = []
+        output_dir = os.path.join("static", "videos")
+        os.makedirs(output_dir, exist_ok=True)
+
+        for index, row in processed_df_with_prompts.iterrows():
+            video_prompt = row.get("Video visuals Prompt")
+            voiceover_prompt = row.get("Video voiceover Prompt")
+
+            if not video_prompt or not voiceover_prompt:
+                video_paths.append("No video generated for this row")
+                continue
+
+            try:
+                # Convert the 3-line video visuals prompt into a list
+                video_prompt_list = video_prompt.splitlines()  # Splits by line breaks into a list
+
+                # Generate video for each row
+                video_file = generate_video(
+                    prompts=video_prompt_list,
+                    narration_text=voiceover_prompt,
+                    hf_token=HF_TOKEN,
+                    google_credentials=GOOGLE_CREDENTIALS
+                )
+                # Save video to the output directory
+                video_path = os.path.join(output_dir, f"generated_video_{index}.mp4")
+                with open(video_path, 'wb') as f:
+                    f.write(video_file)
+
+                video_paths.append(video_path)
+            except Exception as e:
+                print(f"Error generating video for row {index}: {e}")
+                video_paths.append("Error generating video")
+
+        # Add video paths to the outputs
+        outputs['videos'] = video_paths
+    
+    # # Generate Video
+    # if 'video' in content_types:
+    #     # Example usage
+    #     prompts = [
+    #         "A cartoon of a robot performing stand-up comedy while a human looks nervous in the audience.",
+    #         "A robot telling jokes on stage with a spotlight while a human laughs nervously.",
+    #         "A humanoid robot delivering a comedy monologue, audience looking skeptical.",
+    #     ]
+        
+    #     narration_text = "Welcome to the stand-up comedy night with our star performer, the humanoid robot! Welcome to the stand-up comedy night with our star performer, the humanoid robot!"
+
+    #     generate_video(prompts, narration_text, hf_token=HF_TOKEN, google_credentials = GOOGLE_CREDENTIALS)
 
 
     # Return results to the template
