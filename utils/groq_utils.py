@@ -4,6 +4,11 @@ from groq import Groq
 import requests
 from huggingface_hub import InferenceClient
 import os
+from google.oauth2 import service_account
+from google.cloud import texttospeech
+from huggingface_hub import InferenceClient
+from moviepy.video.io.ImageSequenceClip import ImageSequenceClip
+import ffmpeg
 
 def extract_details_to_dataframe(user_inputs, groq_api_key, user_tone=None, user_platform=None):
     """
@@ -662,3 +667,145 @@ def generate_memes_from_dataframe(
     # Add the generated meme paths to the DataFrame
     df["Meme Path"] = meme_paths
     return df
+
+##---------------------------------------------------video generation agent--------------------------------------------------------------
+
+def generate_images(prompts, hf_token, model_id="stabilityai/stable-diffusion-xl-base-1.0"):
+    """
+    Generate images from text prompts using a Hugging Face model.
+
+    Args:
+        prompts (list): List of text prompts.
+        output_dir (str): Directory to save the generated images.
+        model_id (str): Hugging Face model ID to use for generation.
+
+    Returns:
+        list: List of file paths for the generated images.
+    """
+    if not hf_token:
+        raise ValueError("Hugging Face API token (hf_token) is required.")
+
+    # Initialize the Hugging Face client
+    client = InferenceClient(token=hf_token)
+
+    output_dir = os.path.join("static", "images", "for_video")
+    os.makedirs(output_dir, exist_ok=True)
+
+    image_files = []
+    for i, prompt in enumerate(prompts):
+        try:
+            response = client.text_to_image(model=model_id, prompt=prompt)
+            output_file = os.path.join(output_dir, f"image_{i + 1}.png")
+            response.save(output_file) 
+            image_files.append(output_file)
+            print(f"Image {i + 1} saved as '{output_file}'")
+        except Exception as e:
+            print(f"Error generating image for prompt {prompt}: {e}")
+    return image_files
+
+def create_video_from_images(image_files):
+    """
+    Create a video from a sequence of images.
+
+    Args:
+        image_files (list): List of file paths for images.
+        output_file (str): Path to save the video.
+        fps (int): Frames per second.
+
+    Returns:
+        str: Path to the generated video.
+    """
+    output_dir = os.path.join("static", "images", "for_video")
+    os.makedirs(output_dir, exist_ok=True)
+    output_file = os.path.join(output_dir, f"gen_video.mp4")
+
+    try:
+        clip = ImageSequenceClip(image_files, durations=[3.3, 3.3, 3.3]) 
+        clip.write_videofile(output_file, codec="libx264")
+        print(f"Video saved as '{output_file}'")
+        return output_file
+    except Exception as e:
+        print(f"Error creating video: {e}")
+
+def text_to_speech(text, google_credentials):
+    """
+    Convert text to speech and save it to an audio file.
+
+    Args:
+        text (str): The text to convert to speech.
+        output_file (str): The path to save the audio file.
+
+    Returns:
+        str: Path to the generated audio file.
+    """
+    output_dir = os.path.join("static", "images", "for_video")
+    os.makedirs(output_dir, exist_ok=True)
+    output_file = os.path.join(output_dir, f"gen_audio.mp3")
+
+    try:
+        # Create credentials from the dictionary
+        credentials = service_account.Credentials.from_service_account_info(google_credentials)
+        
+        # Initialize Text-to-Speech client with credentials
+        client = texttospeech.TextToSpeechClient(credentials=credentials)
+        
+        input_text = texttospeech.SynthesisInput(text=text)
+        voice = texttospeech.VoiceSelectionParams(
+            language_code="en-US",
+            name="en-US-Wavenet-D",
+            ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL,
+        )
+        audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
+        response = client.synthesize_speech(input=input_text, voice=voice, audio_config=audio_config)
+        
+        with open(output_file, "wb") as out:
+            out.write(response.audio_content)
+        print(f"Audio content written to file {output_file}")
+        return output_file
+    except Exception as e:
+        print(f"Error generating audio: {e}")
+
+def combine_video_audio(input_video, input_audio):
+    """
+    Combines a video file with an audio file into a single video.
+
+    Args:
+        input_video (str): Path to the input video file.
+        input_audio (str): Path to the input audio file.
+        output_video (str): Path to save the output video file.
+    """
+    try:
+        output_dir = os.path.join("static", "images", "for_video")
+        os.makedirs(output_dir, exist_ok=True)
+        output_file = os.path.join(output_dir, f"final_video.mp4")
+
+
+        # Set up FFmpeg inputs
+        video_stream = ffmpeg.input(input_video)
+        audio_stream = ffmpeg.input(input_audio)
+
+        # Generate the output video with audio
+        (
+            ffmpeg
+            .output(video_stream, audio_stream, output_file, vcodec='copy', acodec='aac', shortest=None)
+            .run(overwrite_output=True, quiet=True)
+        )
+        print(f"Video with audio created successfully: {output_file}")
+    except ffmpeg.Error as e:
+        print(f"An FFmpeg error occurred:\n{e.stderr.decode('utf-8')}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
+def generate_video(prompts, narration_text, hf_token, google_credentials):
+    # Generate images
+    images = generate_images(prompts, hf_token)
+
+    # Create video from images
+    video = create_video_from_images(images)
+
+    # Generate speech audio
+    audio = text_to_speech(narration_text, google_credentials)
+
+    # Combine video and audio
+    combine_video_audio(video, audio)

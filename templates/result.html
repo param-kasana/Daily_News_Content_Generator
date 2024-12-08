@@ -27,7 +27,7 @@
             </ul>
         </div>
         {% endif %}
-        {% if outputs.video_url %}
+        {% if outputs.video %}
         <div class="mt-4">
             <h4>Generated Video:</h4>
             <video controls>
@@ -35,7 +35,7 @@
             </video>
         </div>
         {% endif %}
-        {% if outputs.meme_url %}
+        {% if outputs.meme %}
         <div class="mt-4">
             <h4>Generated Meme:</h4>
             <img src="{{ outputs.meme_url }}" alt="Generated Meme" class="img-fluid">

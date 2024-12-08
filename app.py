@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for
-from utils.groq_utils import extract_details_to_dataframe, generate_text_posts , generate_images , generate_memes_from_dataframe, suggest_and_generate_meme_content, fetch_news_for_single_topic_expand_rows, process_articles_with_summaries, generate_prompts_with_video_dependency
+from utils.groq_utils import extract_details_to_dataframe, generate_text_posts , generate_images , generate_memes_from_dataframe, suggest_and_generate_meme_content, fetch_news_for_single_topic_expand_rows, process_articles_with_summaries, generate_prompts_with_video_dependency, generate_video
 import os
 from dotenv import load_dotenv
 
@@ -9,8 +9,28 @@ load_dotenv()
 # Get GROQ API Key
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 BING_API_KEY = os.getenv("BING_API_KEY")
+
 # Hugging Face Token
 HF_TOKEN = os.getenv('HF_TOKEN')
+
+# Extract the sensitive key from the environment
+PRIVATE_KEY = os.getenv("GOOGLE_PRIVATE_KEY")  # Your private key from the JSON
+PRIVATE_KEY_ID = os.getenv("GOOGLE_PRIVATE_KEY_ID")  # Your private key ID
+
+# Construct the credentials dictionary dynamically
+GOOGLE_CREDENTIALS = {
+    "type": "service_account",
+    "project_id": "gen-lang-client-0264847684",
+    "private_key_id": PRIVATE_KEY_ID,
+    "private_key": PRIVATE_KEY,
+    "client_email": "text-to-speech-service-account@gen-lang-client-0264847684.iam.gserviceaccount.com",
+    "client_id": "115310702587466426192",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/text-to-speech-service-account%40gen-lang-client-0264847684.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com",
+}
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/images'
@@ -156,7 +176,6 @@ def generate():
             output_dir = os.path.join("static", "images", "generated"), hf_token=HF_TOKEN
         )
         outputs['images'] = processed_df_with_images["Generated Image Path"].tolist()
-        print(outputs['images'])
 
     # Generate Memes
     if 'meme' in content_types:
@@ -170,6 +189,20 @@ def generate():
             template_column="Meme Template", content_column="Meme Content"
         )
         outputs['memes'] = df_with_memes["Meme Path"].tolist()
+    
+    # Generate Video
+    if 'video' in content_types:
+        # Example usage
+        prompts = [
+            "A cartoon of a robot performing stand-up comedy while a human looks nervous in the audience.",
+            "A robot telling jokes on stage with a spotlight while a human laughs nervously.",
+            "A humanoid robot delivering a comedy monologue, audience looking skeptical.",
+        ]
+        
+        narration_text = "Welcome to the stand-up comedy night with our star performer, the humanoid robot! Welcome to the stand-up comedy night with our star performer, the humanoid robot!"
+
+        generate_video(prompts, narration_text, hf_token=HF_TOKEN, google_credentials = GOOGLE_CREDENTIALS)
+
 
     # Return results to the template
     return render_template('result.html', outputs=outputs)
