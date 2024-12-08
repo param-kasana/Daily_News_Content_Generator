@@ -792,6 +792,7 @@ def combine_video_audio(input_video, input_audio):
             .run(overwrite_output=True, quiet=True)
         )
         print(f"Video with audio created successfully: {output_file}")
+        return output_file
     except ffmpeg.Error as e:
         print(f"An FFmpeg error occurred:\n{e.stderr.decode('utf-8')}")
     except Exception as e:

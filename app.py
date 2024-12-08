@@ -123,16 +123,12 @@ def generate():
                 video_prompt_list = video_prompt.splitlines()  # Splits by line breaks into a list
 
                 # Generate video for each row
-                video_file = generate_video(
+                video_path = generate_video(
                     prompts=video_prompt_list,
                     narration_text=voiceover_prompt,
                     hf_token=HF_TOKEN,
                     google_credentials=GOOGLE_CREDENTIALS
                 )
-                # Save video to the output directory
-                video_path = os.path.join(output_dir, f"generated_video_{index}.mp4")
-                with open(video_path, 'wb') as f:
-                    f.write(video_file)
 
                 video_paths.append(video_path)
             except Exception as e:
