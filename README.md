@@ -4,11 +4,21 @@ Minizica is a revolutionary open-source platform that transforms how you create 
 
 ---
 
-### **Live Demo**
+### **Watch Minizica in Action**
 
-Experience the power of Minizica in action! Explore the live demo and see how effortlessly you can generate high-quality, personalized content from trending news.  
+Check out our demo video to see how Minizica works:  
 
-🔗 [Minizica Live Demo](https://daily-news-content-generator.onrender.com)  
+[![Watch the Demo Video](https://img.youtube.com/vi/YNEF4pFb4BU/0.jpg)](https://www.youtube.com/watch?v=YNEF4pFb4BU)  
+
+Click the image above or [watch the demo video here](https://www.youtube.com/watch?v=YNEF4pFb4BU).
+
+---
+
+### **Explore the Website**
+
+You can explore Minizica's website and see how effortlessly you can generate high-quality, personalized content from trending news.  
+
+🔗 [Explore Minizica](https://daily-news-content-generator.onrender.com)  
 
 Try it now and transform how you create content!  
 
