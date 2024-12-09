@@ -8,7 +8,7 @@ load_dotenv()
 
 # Get GROQ API Key
 GROQ_API_KEY = "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"
-BING_API_KEY = "3ab57f6bff8346b49511203adc3e8b3c"
+BING_API_KEY = "bc5f7e86c6cd4de0bddc90c4ae14f9f9"
 
 # Hugging Face Token
 HF_TOKEN = "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"
