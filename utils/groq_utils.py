@@ -515,7 +515,7 @@ def generate_text_posts(df, text_prompt_column="Text Prompt", groq_api_key=None)
 
             # Meta-prompt to generate the text post
             meta_prompt = (
-                f"Based on the provided input prompt: '{text_prompt}', generate a polished, professional, and engaging text post ready for immediate publication. Ensure the post reflects the specified tone and platform as described in the prompt. The response should be concise, limited to 50–70 words, and include 1-2 relevant hashtags at the end of the post. Provide only the finalized post text with hashtags."
+                f"Based on the provided input prompt: '{text_prompt}', generate a polished, professional, and engaging text post ready for immediate publication. Ensure the post reflects the specified tone and platform as described in the prompt. The response should be concise, and include 1-2 relevant hashtags at the end of the post. Provide only the finalized post text with hashtags."
             )
 
             # Send the meta-prompt to Groq

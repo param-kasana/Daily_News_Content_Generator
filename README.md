@@ -2,7 +2,6 @@
 
 Minizica is a revolutionary open-source platform that transforms how you create content. Powered by cutting-edge AI, it effortlessly generates engaging text posts, captivating images, humorous memes, and dynamic videos—all derived from trending news articles. Completely free to use, Minizica is your ultimate tool for saving time, sparking creativity, and producing tailor-made, high-quality content that resonates with your audience. Whether you're a marketer, creator, or just someone with a story to share, Minizica empowers you to stay ahead and make an impact effortlessly!
 
-
 ---
 
 ### **Live Demo**
@@ -12,6 +11,22 @@ Experience the power of Minizica in action! Explore the live demo and see how ef
 🔗 [Minizica Live Demo](https://daily-news-content-generator.onrender.com)  
 
 Try it now and transform how you create content!  
+
+***Disclaimer:*** This project is in its MVP (Minimum Viable Product) phase, and as such, the website may take some time to start and generate content due to current resource constraints. However, the platform remains completely free to use, ensuring accessible AI-powered content generation for everyone. We appreciate your patience and support as we continue to improve and enhance Minizica!   
+
+---
+
+### **Why Minizica Stands Out**
+
+Minizica is a one-of-a-kind platform that combines multiple AI-driven content generation services—text posts, images, memes, and videos—into a seamless and **completely free** solution.  
+
+Unlike other tools that focus on a single content format or charge high subscription fees, Minizica offers:  
+- **All-in-One Solution**: Generate text, images, memes, and videos from one platform.  
+- **Highly Customizable**: Tailor content tone, style, and platform to your needs.  
+- **Open Source and Free**: Accessible to everyone, with no hidden costs.  
+- **Social Media Integration (In Progress)**: Work is underway to enable direct posting to social media platforms and automated scheduling, further simplifying the content-sharing process.  
+
+No other platform provides this range of services in a unified package, making Minizica a **game-changer** for effortless, AI-powered content creation.  
 
 ---
 
@@ -97,5 +112,3 @@ Minizica simplifies content creation with powerful AI capabilities, making it ac
 
 For a comprehensive understanding of the project, including its architecture, workflow, additional features, demo screenshots, and future
 enhancements refer to the [Detailed Project Report](PROJECT_DETAILS.md).  
-
----
