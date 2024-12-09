@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for
-from utils.groq_utils import extract_details_to_dataframe, generate_text_posts , generate_images , generate_memes_from_dataframe, suggest_and_generate_meme_content, fetch_news_for_single_topic_expand_rows, process_articles_with_summaries, generate_prompts_with_video_dependency, generate_video
+from utils.groq_utils import extract_details_to_dataframe, generate_text_posts , generate_images , generate_memes_from_dataframe, suggest_and_generate_meme_content, fetch_news_for_single_topic_expand_rows, process_articles_with_summaries, generate_prompts_with_video_dependency, generate_video, get_bing_trending_news, summarize_and_extract_topics
 import os
 from dotenv import load_dotenv
 
@@ -12,6 +12,7 @@ BING_API_KEY = os.getenv("BING_API_KEY")
 
 # Hugging Face Token
 HF_TOKEN = os.getenv('HF_TOKEN')
+HF_TOKEN_2= os.getenv('HF_TOKEN_2')
 
 # Extract the sensitive key from the environment
 PRIVATE_KEY_ID = "7613b782fe4d4a4255c7e4c54d8985cfdea69a46"
@@ -37,7 +38,17 @@ app.config['UPLOAD_FOLDER'] = 'static/images'
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Fetch the trending news URLs
+    trend_news_url = get_bing_trending_news(BING_API_KEY, count=5)
+    
+    # Process the trending news data
+    trend_new_df = summarize_and_extract_topics(trend_news_url, GROQ_API_KEY)
+    
+    # Convert the DataFrame to a dictionary for rendering
+    trend_news = trend_new_df.to_dict('records')
+    
+    # Pass the data to the template
+    return render_template('index.html', trend_news=trend_news)
 
 @app.route('/generate', methods=['POST'])
 def generate():
@@ -129,7 +140,7 @@ def generate():
                 video_path = generate_video(
                     prompts=video_prompt_list,
                     narration_text=voiceover_prompt,
-                    hf_token=HF_TOKEN,
+                    hf_token=HF_TOKEN_2,
                     google_credentials=GOOGLE_CREDENTIALS
                 )
                 

@@ -112,6 +112,29 @@ def get_bing_news(search_query, BING_API_KEY, freshness="Day", sort_by="Relevanc
     article_urls = [article["url"] for article in news_data.get("value", [])]
     return article_urls
 
+def get_bing_trending_news(BING_API_KEY, count):
+    """
+    Fetches the top trending news from Bing News Search API.
+
+    Args:
+        BING_API_KEY (str): Bing News API key.
+        count (int): Number of articles to fetch (up to 10, depending on API's limitations).
+
+    Returns:
+        list: A list of trending article URLs.
+    """
+    url = "https://api.bing.microsoft.com/v7.0/news/trendingtopics"
+    headers = {"Ocp-Apim-Subscription-Key": BING_API_KEY}
+    
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    news_data = response.json()
+    
+    # Extract URLs for the top trending articles
+    article_urls = [article["newsSearchUrl"] for article in news_data.get("value", [])][:count]
+    
+    return article_urls
+
 def fetch_news_for_single_topic_expand_rows(df, BING_API_KEY, topic_column="Topic", freshness="Day", sort_by="Relevance", count=5):
     """
     Fetches the most relevant news articles for a single topic in the DataFrame and expands rows for each article,
@@ -201,7 +224,6 @@ def summarize_and_extract_topics(article_urls, groq_api_key):
 
     # Convert results to DataFrame
     df = pd.DataFrame(results)
-    df.to_csv('articles.csv', index=False)
     return df
 
 
