@@ -199,9 +199,12 @@ def summarize_and_extract_topics(article_urls, groq_api_key):
             # Step 1: Summarize the article
             summary_response = client.chat.completions.create(
                 messages=[
-                    {"role": "user", "content": f"Summarize the article at the following URL: {url}"}
+                    {
+                        "role": "user", 
+                        "content": f"Provide only a professional and informative summary of the news from the following URL: {url}. Do not include any additional text."
+                    }
                 ],
-                model="llama-3.3-70b-versatile",
+                model="llama3-groq-70b-8192-tool-use-preview",
             )
             summary = summary_response.choices[0].message.content.strip()
 
@@ -210,7 +213,7 @@ def summarize_and_extract_topics(article_urls, groq_api_key):
                 messages=[
                     {
                         "role": "user",
-                        "content": f"Extract the main topic of this summary in 1-2 words: {summary}. Only provide the topic."
+                        "content": f"Extract the main topic of this summary in 3-5 words: {summary}. Only provide the topic."
                     }
                 ],
                 model="llama-3.3-70b-versatile",
@@ -303,8 +306,7 @@ def generate_prompts_with_video_dependency(processed_df, groq_api_key):
             for output_type in ["text", "image", "video_visuals", "meme"]:
                 if output_type == "text":
                     meta_prompt = (
-                        f"Generate a concise input prompt that can be fed into an LLM to create a {tone.lower()} post for {platform.lower()} "
-                        f"on the topic '{topic}', based on this summary: '{summary}'. Provide only the prompt text, nothing extra words."
+                        f"Create a precise and effective input prompt that can guide an LLM to generate a professional and engaging post on the topic '{topic}'. The tone should be {tone.lower()}, and the post should be suitable for {platform.lower()}. Use the following summary as context: '{summary}'. Provide only the input prompt text, structured clearly and concisely."
                     )
                 elif output_type == "image":
                     meta_prompt = (
@@ -338,8 +340,7 @@ def generate_prompts_with_video_dependency(processed_df, groq_api_key):
             # Generate voiceover prompt based on the video visuals prompt
             video_visuals_prompt = prompts["video_visuals"][-1]  # Get the last generated video visuals prompt
             meta_prompt_voiceover = (
-                f"Based on this video visuals prompt: '{video_visuals_prompt}', generate a 30 words voiceover script that aligns with the visuals "
-                f"and matches the {tone.lower()} tone for a {platform.lower()} post on the topic '{topic}'. Provide only the script text, nothing extra words"
+                f"Using the provided video visuals prompt: '{video_visuals_prompt}', craft a concise and impactful voiceover script tailored to a 8-second duration. The script should align seamlessly with the visuals, reflect the {tone.lower()} tone, and suit a {platform.lower()} post on the topic '{topic}'. Provide only the script text, keeping it precise and suitable for text-to-speech conversion."
             )
 
             response_voiceover = client.chat.completions.create(
@@ -508,8 +509,7 @@ def generate_text_posts(df, text_prompt_column="Text Prompt", groq_api_key=None)
 
             # Meta-prompt to generate the text post
             meta_prompt = (
-                f"Based on this input prompt: '{text_prompt}', generate a complete text post. "
-                "Ensure the tone aligns with the prompt, and provide the post text only."
+                f"Based on the provided input prompt: '{text_prompt}', generate a polished, professional, and engaging text post ready for immediate publication. Ensure the post reflects the specified tone and platform as described in the prompt. The response should be concise, limited to 50–70 words, and include 1-2 relevant hashtags at the end of the post. Provide only the finalized post text with hashtags."
             )
 
             # Send the meta-prompt to Groq
@@ -521,7 +521,10 @@ def generate_text_posts(df, text_prompt_column="Text Prompt", groq_api_key=None)
             )
             # Extract the generated text post
             generated_post = response.choices[0].message.content.strip()
-            generated_posts.append(generated_post)
+
+            # Clean the response
+            cleaned_post = (generated_post.replace("\n", " ").strip())
+            generated_posts.append(cleaned_post)
 
         except Exception as e:
             print(f"Error generating text post for prompt: {text_prompt}\nError: {e}")

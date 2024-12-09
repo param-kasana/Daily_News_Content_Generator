@@ -25,8 +25,16 @@
         {% if outputs.text %}
         <div class="mt-4">
             <h4>Generated Text:</h4>
-            <p id="generated-text">{{ outputs.text }}</p>
-            <button class="btn btn-primary btn-sm" onclick="copyToClipboard('generated-text')">Copy Text</button>
+            <ul class="list-unstyled">
+                {% for text_item in outputs.text %}
+                <li class="mb-3">
+                    <div id="generated-text-{{ loop.index }}" class="p-3 border rounded bg-light">
+                        {{ text_item }}
+                    </div>
+                    <button class="btn btn-primary btn-sm mt-2" onclick="copyToClipboard('generated-text-{{ loop.index }}')">Copy Text</button>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
         {% endif %}
 
@@ -87,7 +95,7 @@
 
         <!-- Generate Again Button -->
         <div class="mt-4 text-center">
-            <a href="/" class="btn btn-secondary">Generate Again</a>
+            <a href="/" class="btn btn-secondary">Go Back to Home</a>
         </div>
     </div>
 </body>
