@@ -7,12 +7,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Get GROQ API Key
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-BING_API_KEY = os.getenv("BING_API_KEY")
+GROQ_API_KEY = "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"
+BING_API_KEY = "3ab57f6bff8346b49511203adc3e8b3c"
 
 # Hugging Face Token
-HF_TOKEN = os.getenv('HF_TOKEN')
-HF_TOKEN_2= os.getenv('HF_TOKEN_2')
+HF_TOKEN = "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"
+HF_TOKEN_2= "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"
 
 # Extract the sensitive key from the environment
 PRIVATE_KEY_ID = "7613b782fe4d4a4255c7e4c54d8985cfdea69a46"
