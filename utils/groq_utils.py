@@ -849,3 +849,94 @@ def generate_video(prompts, narration_text, hf_token, google_credentials):
     # Combine video and audio
     video_path = combine_video_audio(video, audio)
     return video_path
+
+
+##--------------------------------------------------Regenerating the content based on user input--------------------------------------------------------------
+
+def generate_modification_prompts_df(content_type, existing_content, user_modifications, groq_api_key = None):
+    """
+    Generates modification prompts for all content types (text, image, video, meme) and returns a DataFrame.
+
+    Args:
+        content_type (str): Type of the content ('text', 'image', 'video', 'meme').
+        df (pd.DataFrame): DataFrame containing existing content and user modifications.
+        existing_column (str): Name of the column containing the existing content.
+        modification_column (str): Name of the column containing user-provided modifications.
+
+    Returns:
+        pd.DataFrame: Updated DataFrame with a new 'Modification Prompt' column containing the generated prompts.
+    """
+    if not content_type or content_type.lower() not in ['text', 'image', 'video', 'meme']:
+        raise ValueError("Content type must be one of: 'text', 'image', 'video', 'meme'.")
+    if not existing_content:
+        raise ValueError("Existing content cannot be empty.")
+    if not user_modifications:
+        raise ValueError("User modifications cannot be empty.")
+
+    # Create an empty dictionary to populate the DataFrame
+    data = {}
+
+    if content_type.lower() == "text":
+        modification_prompt = (
+            f"Here is the existing text post: '{existing_content}'. "
+            f"The user has provided the following modifications or additional input: '{user_modifications}'. "
+            "Based on the user's input, create a new text post by modifying the existing one. "
+            "Ensure that the updated post retains clarity and coherence. Provide only the new text post."
+        )
+        data["Text Prompt"] = [modification_prompt]
+    elif content_type.lower() == "image":
+        modification_prompt = (
+            f"Here is the existing image description or prompt: '{existing_content}'. "
+            f"The user has provided the following modifications or additional input: '{user_modifications}'. "
+            "Based on the user's input, create a new image description or prompt by modifying the existing one. "
+            "Ensure that the updated description reflects the user's input accurately. Provide only the new image prompt."
+        )
+        data["Image Prompt"] = [modification_prompt]
+    elif content_type.lower() == "video":
+        modification_prompt = (
+            f"Here is the existing video description or prompt: '{existing_content}'. "
+            f"The user has provided the following modifications or additional input: '{user_modifications}'. "
+            "Based on the user's input, create a new video description or prompt by modifying the existing one. "
+            "Ensure that the updated description is detailed, coherent, and aligned with the user's input. Provide only the new video prompt."
+        )
+        client = Groq(api_key=groq_api_key)
+        response = client.chat.completions.create(
+                    messages=[
+                        {"role": "user", "content": modification_prompt}
+                    ],
+                    model="llama-3.3-70b-versatile",
+                )
+        # Extract the generated prompt
+        video_visual_lines = response.choices[0].message.content.strip()
+        
+        meta_prompt_voiceover = (
+            f"Based on this video visuals prompt: '{video_visual_lines}', generate a 40 words voiceover script that aligns with the visuals "
+            f"Provide only the script text, nothing extra words"
+        )
+
+        response_voiceover = client.chat.completions.create(
+            messages=[
+                {"role": "user", "content": meta_prompt_voiceover}
+            ],
+            model="llama-3.3-70b-versatile",
+        )
+        # Extract the generated voiceover script
+        voiceover_prompt = response_voiceover.choices[0].message.content.strip()
+        data["Video visuals Prompt"] = [video_visual_lines]
+        data["Video voiceover Prompt"] = [voiceover_prompt]
+
+    elif content_type.lower() == "meme":
+        modification_prompt = (
+            f"Here is the existing meme description or template: '{existing_content}'. "
+            f"The user has provided the following modifications or additional input: '{user_modifications}'. "
+            "Based on the user's input, create a new meme description or template by modifying the existing one. "
+            "Ensure that the updated description aligns with the user's input while maintaining humor or context. Provide only the new meme description."
+        )
+        data["Meme Prompt"] = [modification_prompt]
+    else:
+        modification_prompt = "Invalid content type."
+
+    # Create a DataFrame from the populated data dictionary
+    df = pd.DataFrame(data)
+
+    return df

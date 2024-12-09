@@ -28,10 +28,23 @@
             <ul class="list-unstyled">
                 {% for text_item in outputs.text %}
                 <li class="mb-3">
+                    <!-- Display the generated text -->
                     <div id="generated-text-{{ loop.index }}" class="p-3 border rounded bg-light">
                         {{ text_item }}
                     </div>
+            
+                    <!-- Copy button for the text -->
                     <button class="btn btn-primary btn-sm mt-2" onclick="copyToClipboard('generated-text-{{ loop.index }}')">Copy Text</button>
+            
+                    <!-- Form to Modify Text -->
+                    <form action="/modify_text" method="POST" class="mt-3">
+                        <input type="hidden" name="existing_text" value="{{ text_item }}">
+                        <div class="mb-3">
+                            <label for="new_text_{{ loop.index }}" class="form-label">Modify Generated Text:</label>
+                            <textarea name="new_text" id="new_text_{{ loop.index }}" class="form-control" rows="3" placeholder="Enter modifications here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-sm">Regenerate Text</button>
+                    </form>
                 </li>
                 {% endfor %}
             </ul>
@@ -50,6 +63,16 @@
                     <br>
                     <a href="{{ url_for('static', filename='images/generated/' + image.split('/')[-1]) }}" 
                        download="{{ image.split('/')[-1] }}" class="btn btn-success btn-sm mt-2">Download Image</a>
+
+                    <!-- Form to Modify Image -->
+                    <form action="/modify_image" method="POST" class="mt-3">
+                        <input type="hidden" name="existing_image_prompt" value="{{ image }}">
+                        <div class="mb-3">
+                            <label for="new_image_input" class="form-label">Modify Image Prompt:</label>
+                            <textarea name="new_image_input" class="form-control" rows="3" placeholder="Enter modifications here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-sm">Regenerate Image</button>
+                    </form>
                 </li>
                 {% endfor %}
             </ul>
@@ -70,6 +93,16 @@
                     <br>
                     <a href="{{ url_for('static', filename=video) }}" 
                        download="{{ video.split('/')[-1] }}" class="btn btn-success btn-sm mt-2">Download Video</a>
+
+                    <!-- Form to Modify Video -->
+                    <form action="/modify_video" method="POST" class="mt-3">
+                        <input type="hidden" name="existing_video_prompt" value="{{ video }}">
+                        <div class="mb-3">
+                            <label for="new_video_input" class="form-label">Modify Video Prompt:</label>
+                            <textarea name="new_video_input" class="form-control" rows="3" placeholder="Enter modifications here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-sm">Regenerate Video</button>
+                    </form>
                 </li>
                 {% endfor %}
             </ul>
@@ -87,6 +120,16 @@
                     <br>
                     <a href="{{ url_for('static', filename=meme) }}" 
                        download="{{ meme.split('/')[-1] }}" class="btn btn-success btn-sm mt-2">Download Meme</a>
+
+                    <!-- Form to Modify Meme -->
+                    <form action="/modify_meme" method="POST" class="mt-3">
+                        <input type="hidden" name="existing_meme_prompt" value="{{ meme }}">
+                        <div class="mb-3">
+                            <label for="new_meme_input" class="form-label">Modify Meme Prompt:</label>
+                            <textarea name="new_meme_input" class="form-control" rows="3" placeholder="Enter modifications here..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-sm">Regenerate Meme</button>
+                    </form>
                 </li>
                 {% endfor %}
             </ul>

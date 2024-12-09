@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for
-from utils.groq_utils import extract_details_to_dataframe, generate_text_posts , generate_images , generate_memes_from_dataframe, suggest_and_generate_meme_content, fetch_news_for_single_topic_expand_rows, process_articles_with_summaries, generate_prompts_with_video_dependency, generate_video, get_bing_trending_news, summarize_and_extract_topics
+from utils.groq_utils import extract_details_to_dataframe, generate_modification_prompts_df, generate_text_posts , generate_images , generate_memes_from_dataframe, suggest_and_generate_meme_content, fetch_news_for_single_topic_expand_rows, process_articles_with_summaries, generate_prompts_with_video_dependency, generate_video, get_bing_trending_news, summarize_and_extract_topics
 import os
 from dotenv import load_dotenv
 
@@ -35,6 +35,10 @@ GOOGLE_CREDENTIALS = {
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/images'
+outputs = {}
+
+# Declare global variable
+processed_df_with_prompts = None
 
 @app.route('/')
 def index():
@@ -52,6 +56,8 @@ def index():
 
 @app.route('/generate', methods=['POST'])
 def generate():
+
+    global processed_df_with_prompts
     # Step 1: Get user inputs
     prompt = request.form.get('prompt')
     tone = request.form.get('tone')
@@ -84,7 +90,7 @@ def generate():
     )
     processed_df_with_prompts.to_csv("processed_df_with_prompts.csv", index=False)
     # Step 6: Generate content based on user selections
-    outputs = {}
+
 
     # Generate Text Posts
     if 'text' in content_types:
@@ -155,6 +161,107 @@ def generate():
         ]
 
     # Return results to the template
+    return render_template('result.html', outputs=outputs)
+
+
+@app.route('/modify_text', methods=['POST'])
+def modify_text():
+    existing_text = request.form.get('existing_text')
+    new_text = request.form.get('new_text')
+
+    modified_df = generate_modification_prompts_df('text', existing_text, new_text)
+
+    # Logic to regenerate text based on `existing_text` and `new_text`
+    processed_df_with_modified_text = generate_text_posts(
+            modified_df, text_prompt_column="Text Prompt", groq_api_key=GROQ_API_KEY
+        )
+    outputs['text'] = processed_df_with_modified_text["Generated Text Post"].tolist()
+    return render_template('result.html', outputs=outputs)
+
+
+@app.route('/modify_image', methods=['POST'])
+def modify_image():
+    global processed_df_with_prompts  # Access the global DataFrame
+    existing_image_prompt = processed_df_with_prompts["Image Prompt"].iloc[0]
+    new_image_input = request.form.get('new_image_input')
+
+    modified_df = generate_modification_prompts_df('image', existing_image_prompt, new_image_input)
+
+    processed_df_with_modified_images = generate_images(
+            modified_df, image_prompt_column="Image Prompt",
+            output_dir = os.path.join("static", "images", "generated"), hf_token=HF_TOKEN
+        )
+    outputs['images'] = processed_df_with_modified_images["Generated Image Path"].tolist()
+    return render_template('result.html', outputs=outputs)
+
+
+@app.route('/modify_video', methods=['POST'])
+def modify_video():
+    global processed_df_with_prompts  # Access the global DataFrame
+    existing_video_prompt = processed_df_with_prompts["Video visuals Prompt"].iloc[0]
+    new_video_input = request.form.get('new_video_input')
+
+    modified_df = generate_modification_prompts_df('video', existing_video_prompt, new_video_input, groq_api_key=GROQ_API_KEY)
+    video_paths = []
+    output_dir = os.path.join("static", "videos")
+    os.makedirs(output_dir, exist_ok=True)
+
+    for index, row in modified_df.iterrows():
+        video_prompt = row.get("Video visuals Prompt")
+        voiceover_prompt = row.get("Video voiceover Prompt")
+
+        if not video_prompt or not voiceover_prompt:
+            video_paths.append("No video generated for this row")
+            continue
+
+        try:
+            # Convert the 3-line video visuals prompt into a list
+            video_prompt_list = video_prompt.splitlines()  # Splits by line breaks into a list
+
+            # Generate video for each row
+            video_path = generate_video(
+                prompts=video_prompt_list,
+                narration_text=voiceover_prompt,
+                hf_token=HF_TOKEN,
+                google_credentials=GOOGLE_CREDENTIALS
+            )
+            
+            video_paths.append(video_path)
+        except Exception as e:
+            print(f"Error generating video for row {index}: {e}")
+            video_paths.append("Error generating video")
+
+        # Add video paths to the outputs
+        outputs['videos'] = [
+        video_path.replace("static/", "") for video_path in video_paths
+        ]
+    return render_template('result.html', outputs=outputs)
+
+
+@app.route('/modify_meme', methods=['POST'])
+def modify_meme():
+    global processed_df_with_prompts
+    existing_meme_prompt = processed_df_with_prompts["Meme Prompt"].iloc[0]
+    new_meme_input = request.form.get('new_meme_input')
+
+    # Logic to regenerate meme based on `existing_meme_prompt` and `new_meme_input`
+    modified_df = generate_modification_prompts_df('meme', existing_meme_prompt, new_meme_input)
+    modified_df["Tone"] = processed_df_with_prompts["Tone"].iloc[0]
+    modified_df["Platform"] = processed_df_with_prompts["Platform"].iloc[0]
+    modified_df["Topic_x"] = processed_df_with_prompts["Topic_x"].iloc[0]
+    meme_data_file = os.path.join("data", "meme_data.json")
+    df_with_meme_content = suggest_and_generate_meme_content(
+        modified_df, meme_prompt_column="Meme Prompt", tone_column="Tone",
+        platform_column="Platform", topic_column="Topic_x", meme_data_file=meme_data_file,
+        groq_api_key=GROQ_API_KEY
+    )
+    df_with_memes = generate_memes_from_dataframe(
+        df_with_meme_content, meme_data_file=meme_data_file,
+        template_column="Meme Template", content_column="Meme Content"
+    )
+    outputs['memes'] = [
+    meme_path.replace("static/", "") for meme_path in df_with_memes["Meme Path"].tolist()
+    ]
     return render_template('result.html', outputs=outputs)
 
 
