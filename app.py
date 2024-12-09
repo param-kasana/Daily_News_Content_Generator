@@ -57,7 +57,9 @@ def index():
 @app.route('/generate', methods=['POST'])
 def generate():
 
-    global processed_df_with_prompts
+    global outputs, processed_df_with_prompts
+    outputs.clear()
+    
     # Step 1: Get user inputs
     prompt = request.form.get('prompt')
     tone = request.form.get('tone')
