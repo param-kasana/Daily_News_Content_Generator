@@ -708,7 +708,7 @@ def generate_memes_from_dataframe(
 
 ##---------------------------------------------------video generation agent--------------------------------------------------------------
 
-def generate_images_for_video(prompts, hf_token, model_id="stabilityai/stable-diffusion-xl-base-1.0"):
+def generate_images_for_video(prompts, hf_token, model_id="stabilityai/stable-diffusion-3.5-large"):
     """
     Generate images from text prompts using a Hugging Face model.
 
@@ -758,7 +758,7 @@ def create_video_from_images(image_files):
     output_file = os.path.join(output_dir, f"gen_video.mp4")
 
     try:
-        clip = ImageSequenceClip(image_files, durations=[3.3, 3.3, 3.3]) 
+        clip = ImageSequenceClip(image_files, durations=[3.5, 3.5, 3]) 
         clip.write_videofile(output_file, codec="libx264")
         print(f"Video saved as '{output_file}'")
         return output_file
