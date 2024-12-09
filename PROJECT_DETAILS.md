@@ -132,9 +132,11 @@ The following workflow illustrates how the AI-powered content generation system 
 
 1. **User Input Interface**  
    An intuitive interface where users provide their content requirements, select tone, platform, and desired formats.  
+   ![Home Page](static/home_page.png) 
 
 2. **Generated Content Previews**  
    Real-time previews of the generated text, images, memes, and videos, tailored to user specifications with options to download or refine outputs through follow-up prompts.  
+   ![Result Page](static/result_page.png) 
 
 ---
 
