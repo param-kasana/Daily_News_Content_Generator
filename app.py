@@ -88,9 +88,10 @@ def generate():
     processed_df_with_prompts = generate_prompts_with_video_dependency(
         processed_df, groq_api_key=GROQ_API_KEY
     )
-    processed_df_with_prompts.to_csv("processed_df_with_prompts.csv", index=False)
-    # Step 6: Generate content based on user selections
 
+    outputs['Summary'] = processed_df_with_prompts['Summary'].iloc[0]
+    outputs['Topic_y'] = processed_df_with_prompts['Topic_y'].iloc[0]
+    outputs['Article URL'] = processed_df_with_prompts['Article URL'].iloc[0]
 
     # Generate Text Posts
     if 'text' in content_types:
