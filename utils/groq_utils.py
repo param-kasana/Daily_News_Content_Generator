@@ -310,20 +310,23 @@ def generate_prompts_with_video_dependency(processed_df, groq_api_key):
                     )
                 elif output_type == "image":
                     meta_prompt = (
-                        f"Generate a concise input prompt that can be fed into an AI model to create an image for a {tone.lower()} "
-                        f"{platform.lower()} post on the topic '{topic}', based on this summary: '{summary}'. Provide only the prompt text, nothing extra words."
+                        f"Craft a concise and precise input prompt to guide an AI model in generating a visually appealing and professional image for a {tone.lower()} "
+                        f"{platform.lower()} post. The image should align with the topic '{topic}' and incorporate details from the following summary: '{summary}'. "
+                        "Provide only the prompt text, ensuring it is detailed enough for accurate generation but free from unnecessary words."
                     )
+
                 elif output_type == "video_visuals":
                     meta_prompt = (
-                        f"Generate three distinct and concise visual prompts for creating a {tone.lower()} video for a "
-                        f"{platform.lower()} post on the topic '{topic}', based on this summary: '{summary}'. "
-                        "Each prompt should describe only the visual elements. Return the prompts as three separate lines, "
-                        "with no additional words or explanations."
+                        f"Generate three sequential and visually coherent prompts for creating images that can be stitched together into a short {tone.lower()} video for a "
+                        f"{platform.lower()} post. The images should narratively align with the topic '{topic}' and reflect the essence of the following summary: '{summary}'. "
+                        "Each prompt should clearly describe one stage of the video, focusing on distinct visual elements, transitions, or actions. Present the prompts as three separate lines, without additional explanations or context."
                     )
+
                 elif output_type == "meme":
                     meta_prompt = (
-                        f"Generate a concise input prompt that can be fed into an AI model to create a {tone.lower()} meme for a "
-                        f"{platform.lower()} post on the topic '{topic}', based on this summary: '{summary}'. Provide only the prompt text, nothing extra words."
+                        f"Craft a precise and creative input prompt for an AI model to generate a {tone.lower()} meme suitable for a "
+                        f"{platform.lower()} post. The meme should effectively address the topic '{topic}' while incorporating the key ideas from the summary: '{summary}'. "
+                        "The input prompt should focus only on the essential elements for accurate meme generation and be free of extra words."
                     )
 
                 # Send the meta-prompt to Groq
@@ -428,14 +431,16 @@ def suggest_and_generate_meme_content(
             while not valid_template:
                 # Step 1: Suggest a meme template
                 meta_prompt_template = (
-                    f"Based on this meme description: '{meme_prompt}', suggest a popular meme template that aligns with the tone '{tone}', "
-                    f"the topic '{topic}', and is suitable for a {platform.lower()} post. Provide only the meme template name."
-                )
+                        f"Based on the description: '{meme_prompt}', recommend a popular and appropriate meme template that reflects the {tone.lower()} tone, "
+                        f"the topic '{topic}', and is suitable for a {platform.lower()} post. Provide only the name of the meme template, without explanations or additional context."
+                    )
+
                 response = client.chat.completions.create(
                     messages=[{"role": "user", "content": meta_prompt_template}],
                     model="llama-3.3-70b-versatile",
                 )
                 suggested_template = response.choices[0].message.content.strip()
+                suggested_template = suggested_template.replace('"', '')
 
                 # Step 2: Validate the suggested template
                 valid_template = next(
@@ -452,10 +457,11 @@ def suggest_and_generate_meme_content(
             # Step 3: Generate concise meme content
             lines_required = valid_template["lines"]
             meta_prompt_content = (
-                f"Generate a meme content with exactly {lines_required} lines using the '{valid_template['name']}' template. "
-                f"The meme should align with this description: '{meme_prompt}', and reflect the {tone.lower()} tone. "
-                "Do not include any explanations or descriptions. Provide only the text lines for the meme, separated by newlines."
-            )
+                    f"Generate concise and impactful meme captions with exactly {lines_required} lines to fit the '{valid_template['name']}' template. "
+                    f"The captions should align with the description: '{meme_prompt}', reflect the {tone.lower()} tone, and be short enough to fit perfectly within the designated text spaces of the meme. "
+                    "Provide only the captions as separate lines, with no explanations or extra words."
+                )
+
             response_content = client.chat.completions.create(
                 messages=[{"role": "user", "content": meta_prompt_content}],
                 model="llama-3.3-70b-versatile",
