@@ -93,7 +93,7 @@ In short, Minizica is designed to transform the way you create, share, and engag
 
 The following workflow illustrates how the AI-powered content generation system operates, transforming user inputs into high-quality, multi-format content:
 
-![Workflow Diagram](static/flow_black.png) 
+![Workflow Diagram](static/workflow.png) 
 
 1. **Requirement Gathering**:  
    Users primarily provide a complete requirement as input (e.g., "Generate an informative post about renewable energy advancements for a LinkedIn audience"), which is processed by the LLM to extract the necessary parameters such as topic, tone, and platform.  
