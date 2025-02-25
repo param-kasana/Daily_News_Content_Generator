@@ -3,6 +3,12 @@
 Minizica is a revolutionary open-source platform that transforms how you create content. Powered by cutting-edge AI, it effortlessly generates engaging text posts, captivating images, humorous memes, and dynamic videos—all derived from trending news articles. Completely free to use, Minizica is your ultimate tool for saving time, sparking creativity, and producing tailor-made, high-quality content that resonates with your audience. Whether you're a marketer, creator, or just someone with a story to share, Minizica empowers you to stay ahead and make an impact effortlessly!
 
 ---
+**🏆 Hackathon Champion**  
+Minizica proudly secured **1st place** among 200 teams worldwide at the **#BuildwithAI Hackathon 2024**, hosted by **[GenAI Works](https://genai.works)**—the world’s largest AI hub with over 10 million enthusiasts! 🚀🎉  
+
+This annual global competition brought together 4,500 participants to push the boundaries of AI innovation, and Minizica emerged as the top project, demonstrating its potential to revolutionize AI-powered content creation.  
+
+---
 
 ### **Watch Minizica in Action**
 
